@@ -7,14 +7,41 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Firebase.Database;
+using Firebase.Database.Query;
+
+
 
 namespace AtYarisi
 {
     public partial class Form1 : Form
     {
+        private readonly FirebaseDBService _dbService;
         public Form1()
         {
             InitializeComponent();
+            _dbService = new FirebaseDBService("https://atyarisibahis-default-rtdb.europe-west1.firebasedatabase.app/");
+        }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            string yazilanId = await _dbService.AddDataAsync("testVeri", new { Mesaj = "Deneme" });
+            MessageBox.Show($"Veri başarıyla yazıldı. ID: {yazilanId}");
+
+            var okunanVeri = await _dbService.ReadDataAsync<object>($"testVeri/{yazilanId}");
+            if (okunanVeri != null)
+            {
+                Console.WriteLine($"Okunan Veri (ID: {yazilanId}): {okunanVeri}");
+            }
+            else
+            {
+                Console.WriteLine($"Okuma başarısız. ID: {yazilanId} bulunamadı.");
+            }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
