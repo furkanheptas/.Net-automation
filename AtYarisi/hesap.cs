@@ -24,5 +24,21 @@ namespace AtYarisi
             basla.Show();
             this.Hide();
         }
+
+        private void hesap_Load(object sender, EventArgs e)
+        {
+            int x = 800;
+            int y = 600;
+
+            this.Size = new System.Drawing.Size(x, y);
+
+            int ekranGenisligi = Screen.PrimaryScreen.WorkingArea.Width;
+            int ekranYuksekligi = Screen.PrimaryScreen.WorkingArea.Height;
+
+            int baslangicX = (ekranGenisligi - this.Width) / 2;
+            int baslangicY = (ekranYuksekligi - this.Height) / 2;
+
+            this.Location = new System.Drawing.Point(baslangicX, baslangicY);
+        }
     }
 }

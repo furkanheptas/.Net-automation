@@ -89,7 +89,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
@@ -97,6 +97,7 @@
             this.Controls.Add(this.button1);
             this.Name = "basla";
             this.Text = "basla";
+            this.Load += new System.EventHandler(this.basla_Load);
             this.ResumeLayout(false);
 
         }
