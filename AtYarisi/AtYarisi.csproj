@@ -111,6 +111,36 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="admin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="admin.Designer.cs">
+      <DependentUpon>admin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="atlarim.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="atlarim.Designer.cs">
+      <DependentUpon>atlarim.cs</DependentUpon>
+    </Compile>
+    <Compile Include="atYarislari.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="atYarislari.Designer.cs">
+      <DependentUpon>atYarislari.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ayarlar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ayarlar.Designer.cs">
+      <DependentUpon>ayarlar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="basla.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="basla.Designer.cs">
+      <DependentUpon>basla.cs</DependentUpon>
+    </Compile>
     <Compile Include="FirebaseDBService.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -118,10 +148,43 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="hesap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="hesap.Designer.cs">
+      <DependentUpon>hesap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="istatistikler.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="istatistikler.Designer.cs">
+      <DependentUpon>istatistikler.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="admin.resx">
+      <DependentUpon>admin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="atlarim.resx">
+      <DependentUpon>atlarim.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="atYarislari.resx">
+      <DependentUpon>atYarislari.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ayarlar.resx">
+      <DependentUpon>ayarlar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="basla.resx">
+      <DependentUpon>basla.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="hesap.resx">
+      <DependentUpon>hesap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="istatistikler.resx">
+      <DependentUpon>istatistikler.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

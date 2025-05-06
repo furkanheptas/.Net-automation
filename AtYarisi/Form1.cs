@@ -43,5 +43,31 @@ namespace AtYarisi
         {
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            basla basla = new basla();
+            basla.Show();
+            this.Hide();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            ayarlar ayarlar = new ayarlar();
+            ayarlar.Show();
+            this.Hide();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            admin admin = new admin();
+            admin.Show();
+            this.Hide();
+        }
     }
 }
