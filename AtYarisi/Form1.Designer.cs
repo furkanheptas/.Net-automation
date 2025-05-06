@@ -92,12 +92,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-<<<<<<< HEAD
             this.BackgroundImage = global::AtYarisi.Properties.Resources.anasayfafoto;
-            this.ClientSize = new System.Drawing.Size(600, 366);
-=======
-            this.ClientSize = new System.Drawing.Size(784, 561);
->>>>>>> 90877e9 (Tüm formların boyutu ve loadda ortalanması ayarlandı. Locked değerleri true yapıldı Form boyutları 800x600)
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
