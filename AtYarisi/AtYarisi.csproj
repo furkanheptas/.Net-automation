@@ -117,6 +117,7 @@
     <Compile Include="admin.Designer.cs">
       <DependentUpon>admin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Atlar.cs" />
     <Compile Include="atlarim.cs">
       <SubType>Form</SubType>
     </Compile>
