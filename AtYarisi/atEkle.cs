@@ -13,6 +13,7 @@ namespace AtYarisi
     public partial class atEkle : Form
     {
         private readonly FirebaseDBService _dbService;
+        private readonly Random _random = new Random();
         public atEkle()
         {
             InitializeComponent();
@@ -93,5 +94,50 @@ namespace AtYarisi
 
             this.Location = new System.Drawing.Point(baslangicX, baslangicY);
         }
+
+        private async void button3_Click(object sender, EventArgs e)
+        {
+            if (!int.TryParse(textBox6.Text, out int eklenecekAdet) || eklenecekAdet <= 0)
+            {
+                MessageBox.Show("Lütfen geçerli bir sayı girin.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            List<Task<string>> eklemeTasklari = new List<Task<string>>();
+
+            for (int i = 0; i < eklenecekAdet; i++)
+            {
+                string rastgeleAtAdi = RastgeleAtAdiOlustur();
+                int rastgeleHiz = _random.Next(70, 100);
+                int rastgeleDayaniklilik = _random.Next(70, 100);
+                int rastgeleBakim = _random.Next(70, 100);
+                int rastgeleRng = _random.Next(1, 101);
+
+                At yeniAt = new At
+                {
+                    Isim = rastgeleAtAdi,
+                    Hiz = rastgeleHiz,
+                    Dayaniklilik = rastgeleDayaniklilik,
+                    Bakim = rastgeleBakim,
+                    Rng = rastgeleRng,
+                    Sahiplik = false
+                };
+                eklemeTasklari.Add(_dbService.AddDataAsync("atlar", yeniAt));
+            }
+
+            await Task.WhenAll(eklemeTasklari);
+
+            MessageBox.Show($"{eklenecekAdet} adet at başarıyla eklendi.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            textBox6.Clear();
+        }
+
+        private string RastgeleAtAdiOlustur()
+        {
+            string[] baslangic = { "Hızlı", "Kara", "Beyaz",  "Yıldırım", "Ateş", "Gümüş", "Altın", "Kızıl" };
+            string[] son = { "Yele", "Göz", "Kanat", "Gölge", "Şimşek", "Rüzgar" };
+            return baslangic[_random.Next(baslangic.Length)] + son[_random.Next(son.Length)] + _random.Next(100);
+        }
+
     }
 }
