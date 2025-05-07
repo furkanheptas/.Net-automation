@@ -39,5 +39,27 @@ namespace AtYarisi
             return snapshot.FirstOrDefault()?.Object;
         }
 
+        public async Task<Dictionary<string, At>> GetAllHorsesDictionaryAsync()
+        {
+            var snapshot = await firebaseClient
+                .Child("atlar")
+                .OnceAsync<At>();
+
+            return snapshot.ToDictionary(item => item.Key, item => item.Object);
+        }
+
+        public async Task UpdateHorseAsync(string atId, At guncellenmisAt)
+        {
+            await firebaseClient
+                .Child($"atlar/{atId}")
+                .PutAsync(guncellenmisAt);
+        }
+
+        public async Task DeleteHorseAsync(string atId)
+        {
+            await firebaseClient
+                .Child($"atlar/{atId}")
+                .DeleteAsync();
+        }
     }
 }

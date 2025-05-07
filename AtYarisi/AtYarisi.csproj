@@ -120,6 +120,18 @@
     <Compile Include="admin.Designer.cs">
       <DependentUpon>admin.cs</DependentUpon>
     </Compile>
+    <Compile Include="atDuzenle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="atDuzenle.Designer.cs">
+      <DependentUpon>atDuzenle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="atEkle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="atEkle.Designer.cs">
+      <DependentUpon>atEkle.cs</DependentUpon>
+    </Compile>
     <Compile Include="Atlar.cs" />
     <Compile Include="atlarim.cs">
       <SubType>Form</SubType>
@@ -173,6 +185,12 @@
     </Compile>
     <EmbeddedResource Include="admin.resx">
       <DependentUpon>admin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="atDuzenle.resx">
+      <DependentUpon>atDuzenle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="atEkle.resx">
+      <DependentUpon>atEkle.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="atlarim.resx">
       <DependentUpon>atlarim.cs</DependentUpon>

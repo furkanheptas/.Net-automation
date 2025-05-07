@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 namespace AtYarisi
 {
-    internal class Atlar
-    {
         public class At
         {
             public string Isim { get; set; }
@@ -17,5 +15,4 @@ namespace AtYarisi
             public int Rng { get; set; }
             public bool Sahiplik { get; set; } = false;
         }
-    }
 }
