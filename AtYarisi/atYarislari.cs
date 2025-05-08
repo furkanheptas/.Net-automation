@@ -174,37 +174,41 @@ namespace AtYarisi
         private void HesaplaBahisOranlari(List<At> katilanAtlar)
         {
             _bahisOranlari.Clear();
-            Dictionary<string, decimal> atPuanlari = new Dictionary<string, decimal>();
-            decimal toplamPuan = 0;
 
-            foreach (var at in katilanAtlar)
+            var puanliAtlar = katilanAtlar
+                .Select(at => new
+                {
+                    At = at,
+                    Puan = at.Hiz * 1.0m + (decimal)at.Dayaniklilik * 0.7m
+                })
+                .OrderByDescending(x => x.Puan)
+                .ToList();
+
+            decimal minOran = 1.4m;
+            decimal maxOran = 9.0m;
+
+            for (int i = 0; i < puanliAtlar.Count; i++)
             {
-                decimal puan = at.Hiz * 1.0m + (decimal)at.Dayaniklilik * 0.7m + at.Bakim * 0.2m;
-                atPuanlari[at.Isim] = puan;
-                toplamPuan += puan;
-            }
+                var at = puanliAtlar[i].At;
 
-            foreach (var at in katilanAtlar)
-            {
-                decimal puan = atPuanlari[at.Isim];
-                decimal kazanmaOlasiligi = puan / toplamPuan;
+                decimal baseOran = Map(i, 0, puanliAtlar.Count - 1, minOran, maxOran);
 
+                decimal varyasyon = (decimal)_random.NextDouble() * 0.2m - 0.1m;
+                baseOran *= (1 + varyasyon);
 
-                var minOlasilik = atPuanlari.Values.Min() / toplamPuan;
-                var maxOlasilik = atPuanlari.Values.Max() / toplamPuan;
-
-                decimal oran = Map(kazanmaOlasiligi, maxOlasilik, minOlasilik, 1.2m, 10.0m);
-
-                _bahisOranlari[at.Isim] = Math.Round(oran, 2);
+                baseOran = Clamp(baseOran, minOran, maxOran);
+                _bahisOranlari[at.Isim] = Math.Round(baseOran, 2);
             }
         }
 
-        private decimal Map(decimal value, decimal fromSource, decimal toSource, decimal fromTarget, decimal toTarget)
-        {
-            if (fromSource == toSource)
-                return (fromTarget + toTarget) / 2;
 
-            return fromTarget + ((value - fromSource) / (toSource - fromSource)) * (toTarget - fromTarget);
+
+        private decimal Map(decimal value, decimal fromMin, decimal fromMax, decimal toMin, decimal toMax)
+        {
+            if (fromMax - fromMin == 0)
+                return toMin;
+
+            return toMin + (value - fromMin) * (toMax - toMin) / (fromMax - fromMin);
         }
 
 
