@@ -123,5 +123,20 @@ namespace AtYarisi
                 label6.Text = secilenAtDayaniklilik.ToString();
             }
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedIndex >= 0)
+            {
+                Yaris secilenYaris = _yarislar[listBox1.SelectedIndex];
+                yaris yaris = new yaris(secilenYaris);
+                yaris.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Lütfen oynatmak için bir yarış seçin.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
     }
 }
