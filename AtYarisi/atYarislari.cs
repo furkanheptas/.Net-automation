@@ -135,10 +135,6 @@ namespace AtYarisi
                 _secilenAtIsim = dataGridView1.SelectedRows[0].Cells["Isim"].Value?.ToString();
                 int secilenAtHiz = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Hiz"].Value);
                 float secilenAtDayaniklilik = (float)dataGridView1.SelectedRows[0].Cells["Dayaniklilik"].Value;
-
-                label4.Text = "İsim: " + _secilenAtIsim;
-                label5.Text = "Hız: " + secilenAtHiz.ToString();
-                label6.Text = "Dayanıklılık: " + secilenAtDayaniklilik.ToString();
             }
         }
 
@@ -183,7 +179,7 @@ namespace AtYarisi
 
             foreach (var at in katilanAtlar)
             {
-                decimal puan = at.Hiz * 1.0m + (decimal)at.Dayaniklilik * 0.7m + at.Bakim * 0.5m;
+                decimal puan = at.Hiz * 1.0m + (decimal)at.Dayaniklilik * 0.7m + at.Bakim * 0.2m;
                 atPuanlari[at.Isim] = puan;
                 toplamPuan += puan;
             }
