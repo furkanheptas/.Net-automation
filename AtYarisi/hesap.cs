@@ -40,5 +40,24 @@ namespace AtYarisi
 
             this.Location = new System.Drawing.Point(baslangicX, baslangicY);
         }
+
+        private void BorcAl_Click(object sender, EventArgs e)
+        {
+            double tutar = Convert.ToDouble(txtTutar.Text);
+            label2.Text = $"{tutar} TL borç alındı.";
+        }
+
+        private void BorcVer_Click(object sender, EventArgs e)
+        {
+            double tutar = Convert.ToDouble(txtTutar.Text);
+            label2.Text = $"{tutar} TL borç verildi.";
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            double tutar = Convert.ToDouble(txtTutar.Text);
+            label2.Text = $"{tutar} TL borç ödendi.";
+        }
     }
-}
+    }
+
