@@ -57,14 +57,14 @@ namespace AtYarisi
                 {
                     if (kontrol is PictureBox && kontrol.Tag is At atBilgisi)
                     {
-                        atBilgisi.Dayaniklilik -= (float)_yarismasirasiRnd.Next(1, 5) / 10f;
+                        atBilgisi.Dayaniklilik -= (float)_yarismasirasiRnd.Next(1, 5) / 7f;
                         atBilgisi.Dayaniklilik = Math.Max(0, atBilgisi.Dayaniklilik);
 
                         float dayaniklilikCarpani = Math.Max(0.5f, atBilgisi.Dayaniklilik / 100f);
 
                         float bakimCarpani = 1 + (atBilgisi.Bakim / 300f);
 
-                        int rngLimit = atBilgisi.Rng / 10;
+                        int rngLimit = atBilgisi.Rng / 5;
                         float rngBonus = _yarismasirasiRnd.Next(-rngLimit, rngLimit + 1) / 2f;
 
                         float dengeFreni = kontrol.Left > this.ClientSize.Width * 0.7f ? 0.9f : 1.0f;
