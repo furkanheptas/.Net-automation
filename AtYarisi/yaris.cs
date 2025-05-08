@@ -13,6 +13,8 @@ namespace AtYarisi
 {
     public partial class yaris : Form
     {
+        public delegate void YarisSonlandiEventHandler(string kazananAtIsmi);
+        public event YarisSonlandiEventHandler YarisSonlandi;
         private Yaris _secilenYaris;
         private Random _yarismasirasiRnd = new Random();
         private PictureBox _kazananAtKontrol = null;
@@ -95,12 +97,13 @@ namespace AtYarisi
                 if (_kazananAtKontrol != null)
                 {
                     timer1.Stop();
+                    _yarisBitti = true;
                     string kazananAtIsmi = _kazananAtKontrol.Text;
                     MessageBox.Show($"Yarışı kazanan: {kazananAtIsmi}", "Yarış Sonucu", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     _kazananAtKontrol = null;
-                    atYarislari atYarislari = new atYarislari();
-                    atYarislari.Show();
-                    this.Close();
+
+                    YarisSonlandi?.Invoke(kazananAtIsmi);
+                    this.Dispose();
                 }
             }
         }
