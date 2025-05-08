@@ -276,6 +276,13 @@
     <Content Include="anasayfa-music.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="muzik.wav" />
+    <None Include="Resources\unmute.png" />
+    <None Include="Resources\sesac.png" />
+    <None Include="Resources\seskis1.png" />
+    <None Include="Resources\Image1.bmp" />
+    <None Include="Resources\muzik.wav" />
+    <None Include="Resources\mute1.png" />
     <Content Include="Resources\pp.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
