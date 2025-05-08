@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Google.Apis.Requests.Parameters;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static AtYarisi.Form1;
 
 namespace AtYarisi
 {
@@ -39,6 +41,16 @@ namespace AtYarisi
             int baslangicY = (ekranYuksekligi - this.Height) / 2;
 
             this.Location = new System.Drawing.Point(baslangicX, baslangicY);
+        }
+
+        private void button1_MouseEnter(object sender, EventArgs e)
+        {
+            boyutlama.butonbuyut(button1, 5, 10);
+        }
+
+        private void button1_MouseLeave(object sender, EventArgs e)
+        {
+            boyutlama.butonkucult(button1, 5, 10);
         }
     }
 }

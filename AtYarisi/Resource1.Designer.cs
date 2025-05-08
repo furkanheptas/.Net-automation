@@ -63,9 +63,29 @@ namespace AtYarisi {
         /// <summary>
         ///   System.Byte[] türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
-        internal static byte[] anasayfa_music {
+        internal static byte[] mute {
             get {
-                object obj = ResourceManager.GetObject("anasayfa-music", resourceCulture);
+                object obj = ResourceManager.GetObject("mute", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static byte[] muzik {
+            get {
+                object obj = ResourceManager.GetObject("muzik", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static byte[] seskis {
+            get {
+                object obj = ResourceManager.GetObject("seskis", resourceCulture);
                 return ((byte[])(obj));
             }
         }

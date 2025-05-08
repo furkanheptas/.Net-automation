@@ -69,5 +69,54 @@ namespace AtYarisi.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap mute {
+            get {
+                object obj = ResourceManager.GetObject("mute", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.IO.MemoryStream öğesine benzeyen System.IO.UnmanagedMemoryStream türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream muzik {
+            get {
+                return ResourceManager.GetStream("muzik", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap sesac {
+            get {
+                object obj = ResourceManager.GetObject("sesac", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap seskis {
+            get {
+                object obj = ResourceManager.GetObject("seskis", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Bitmap unmute {
+            get {
+                object obj = ResourceManager.GetObject("unmute", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

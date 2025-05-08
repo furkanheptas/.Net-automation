@@ -121,4 +121,19 @@
   <data name="anasayfafoto" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\anasayfafoto.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="muzik" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\muzik.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="unmute" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\unmute.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="seskis" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\seskis1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sesac" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sesac.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mute" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mute1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
