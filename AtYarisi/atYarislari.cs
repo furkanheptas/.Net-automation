@@ -184,20 +184,38 @@ namespace AtYarisi
                 .OrderByDescending(x => x.Puan)
                 .ToList();
 
-            decimal minOran = 1.4m;
-            decimal maxOran = 9.0m;
+            decimal minOran = 1.1m;
+            decimal maxOran = 4.5m;
+
+            decimal maxPuan = puanliAtlar.First().Puan;
+            decimal minPuan = puanliAtlar.Last().Puan;
+            decimal puanAraligi = maxPuan - minPuan;
+
+            HashSet<decimal> benzersizOranlar = new HashSet<decimal>();
 
             for (int i = 0; i < puanliAtlar.Count; i++)
             {
                 var at = puanliAtlar[i].At;
 
-                decimal baseOran = Map(i, 0, puanliAtlar.Count - 1, minOran, maxOran);
+                decimal normalizedPuan = puanAraligi > 0
+                    ? (puanliAtlar[i].Puan - minPuan) / puanAraligi
+                    : 0.5m;
 
-                decimal varyasyon = (decimal)_random.NextDouble() * 0.2m - 0.1m;
+                decimal baseOran = Map(normalizedPuan, 0, 1, maxOran, minOran);
+
+                decimal varyasyon = (decimal)_random.NextDouble() * 0.3m - 0.15m;
                 baseOran *= (1 + varyasyon);
 
+                while (benzersizOranlar.Contains(Math.Round(baseOran, 2)))
+                {
+                    baseOran += 0.01m;
+                }
+
                 baseOran = Clamp(baseOran, minOran, maxOran);
-                _bahisOranlari[at.Isim] = Math.Round(baseOran, 2);
+                baseOran = Math.Round(baseOran, 2);
+
+                benzersizOranlar.Add(baseOran);
+                _bahisOranlari[at.Isim] = baseOran;
             }
         }
 

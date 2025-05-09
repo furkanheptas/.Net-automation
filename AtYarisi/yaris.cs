@@ -61,20 +61,26 @@ namespace AtYarisi
                         atBilgisi.Dayaniklilik = Math.Max(0, atBilgisi.Dayaniklilik);
 
                         float dayaniklilikCarpani = Math.Max(0.5f, atBilgisi.Dayaniklilik / 100f);
-
                         float bakimCarpani = 1 + (atBilgisi.Bakim / 300f);
-
                         int rngLimit = atBilgisi.Rng / 5;
                         float rngBonus = _yarismasirasiRnd.Next(-rngLimit, rngLimit + 1) / 2f;
 
                         float dengeFreni = kontrol.Left > this.ClientSize.Width * 0.7f ? 0.9f : 1.0f;
+
+                        float gerideBonus = 1.0f;
+                        int maxKonum = this.Controls.OfType<PictureBox>().Max(pb => pb.Left);
+                        if (kontrol.Left < maxKonum)
+                        {
+                            int fark = maxKonum - kontrol.Left;
+                            gerideBonus = 1 + (fark / (float)this.ClientSize.Width) * 0.5f;
+                        }
 
                         if (_yarismasirasiRnd.Next(0, 1000) < 5)
                         {
                             rngBonus += _yarismasirasiRnd.Next(5, 15);
                         }
 
-                        float hareket = (atBilgisi.Hiz / 10f) * dayaniklilikCarpani * bakimCarpani * dengeFreni + rngBonus;
+                        float hareket = (atBilgisi.Hiz / 10f) * dayaniklilikCarpani * bakimCarpani * dengeFreni * gerideBonus + rngBonus;
                         hareket = Math.Max(1f, hareket);
 
                         kontrol.Left += (int)Math.Round(hareket);
