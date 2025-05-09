@@ -103,6 +103,8 @@ namespace AtYarisi
                     _kazananAtKontrol = null;
 
                     YarisSonlandi?.Invoke(kazananAtIsmi);
+                    hesap hesap = new hesap();
+                    hesap.Hesap_YarisSonlandi(kazananAtIsmi);
                     this.Dispose();
                 }
             }

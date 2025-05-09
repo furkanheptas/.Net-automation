@@ -19,9 +19,9 @@ namespace AtYarisi
         private readonly Random _random = new Random();
         private Dictionary<string, decimal> _bahisOranlari = new Dictionary<string, decimal>();
         private decimal _kullaniciBakiyesi;
-        private const string BakiyeDosyasi = "kullanici_bakiye.txt";
         private string _secilenAtIsim;
         private decimal _bahisMiktari;
+        private readonly hesapIslemleri _hesapIslemleri = new hesapIslemleri();
 
         public atYarislari()
         {
@@ -29,7 +29,7 @@ namespace AtYarisi
             this.FormClosed += (sender, e) => Application.Exit();
             _yarislar = new List<Yaris>();
             _dbService = new FirebaseDBService("https://atyarisibahis-default-rtdb.europe-west1.firebasedatabase.app/");
-            _kullaniciBakiyesi = DosyadanBakiyeYukle();
+            _kullaniciBakiyesi = _hesapIslemleri.DosyadanBakiyeYukle();
         }
 
         public class Yaris
@@ -150,7 +150,7 @@ namespace AtYarisi
                     {
                         BahisSonucuHesapla(kazananAtIsmi);
                         GuncelleKullaniciBakiyesi();
-                        DosyayaBakiyeKaydet(_kullaniciBakiyesi);
+                        _hesapIslemleri.DosyayaBakiyeKaydet(_kullaniciBakiyesi);
                         this.Show();
                         await YarisOlusturVeListele();
                     };
@@ -281,47 +281,7 @@ namespace AtYarisi
             label7.Text = $"Bakiye: {_kullaniciBakiyesi:F2} TL";
         }
 
-        private decimal DosyadanBakiyeYukle()
-        {
-            if (File.Exists(BakiyeDosyasi))
-            {
-                try
-                {
-                    string bakiyeStr = File.ReadAllText(BakiyeDosyasi);
-                    if (decimal.TryParse(bakiyeStr, NumberStyles.Float, CultureInfo.InvariantCulture, out decimal bakiye))
-                    {
-                        return bakiye;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Geçersiz bakiye dosyası. Varsayılan bakiye yüklendi.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return 1000;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Bakiye dosyası okunamadı. Varsayılan bakiye yüklendi. Hata: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return 1000;
-                }
-            }
-            else
-            {
-                DosyayaBakiyeKaydet(1000);
-                return 1000;
-            }
-        }
-
-        private void DosyayaBakiyeKaydet(decimal bakiye)
-        {
-            try
-            {
-                File.WriteAllText(BakiyeDosyasi, bakiye.ToString(CultureInfo.InvariantCulture));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Bakiye dosyası yazılamadı. Hata: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+        
     }
 }
 
