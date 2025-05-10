@@ -17,7 +17,7 @@ namespace AtYarisi
         private Dictionary<string, At> _atlar;
         private string _secilenAtId;
 
-        private async Task LoadHorses()
+        public async Task atYukle()
         {
             _atlar = await _dbService.GetAllHorsesDictionaryAsync();
             dataGridView1.DataSource = _atlar.Select(kvp => new
@@ -55,7 +55,7 @@ namespace AtYarisi
             int baslangicY = (ekranYuksekligi - this.Height) / 2;
 
             this.Location = new System.Drawing.Point(baslangicX, baslangicY);
-            await LoadHorses();
+            await atYukle();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -109,7 +109,7 @@ namespace AtYarisi
 
                 await _dbService.UpdateHorseAsync(_secilenAtId, guncellenmisAt);
                 MessageBox.Show("At bilgileri güncellendi.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                await LoadHorses();
+                await atYukle();
             }
             else
             {
@@ -125,7 +125,7 @@ namespace AtYarisi
                 {
                     await _dbService.DeleteHorseAsync(_secilenAtId);
                     MessageBox.Show("At başarıyla silindi.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    await LoadHorses();
+                    await atYukle();
                     textBox1.Clear();
                     textBox2.Clear();
                     textBox3.Clear();
@@ -139,6 +139,11 @@ namespace AtYarisi
             {
                 MessageBox.Show("Lütfen önce listeden silmek istediğiniz bir at seçin.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
