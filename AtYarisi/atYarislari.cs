@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Globalization;
+using static AtYarisi.istatistik;
 
 namespace AtYarisi
 {
@@ -31,8 +32,8 @@ namespace AtYarisi
             _dbService = new FirebaseDBService("https://atyarisibahis-default-rtdb.europe-west1.firebasedatabase.app/");
             _kullaniciBakiyesi = DosyadanBakiyeYukle();
         }
-
-        public class Yaris
+        
+         public class Yaris
         {
             public string Id { get; set; }
             public List<At> KatilanAtlar { get; set; }
@@ -263,17 +264,22 @@ namespace AtYarisi
 
         private void BahisSonucuHesapla(string kazananAtIsmi)
         {
+                istatistik.Istatistik.ToplamBahisSayisi++;
             if (_secilenAtIsim == kazananAtIsmi)
             {
                 decimal bahisOrani = _bahisOranlari[kazananAtIsmi];
                 decimal kazanc = _bahisMiktari * bahisOrani;
                 _kullaniciBakiyesi += kazanc;
                 MessageBox.Show($"Yarışı kazandınız! Kazanç: {kazanc:F2} TL", "Yarış Sonucu", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                istatistik.Istatistik.KazanilanBahisSayisi++;
+                istatistik.Istatistik.ToplamKazanilanPara += kazanc;
             }
             else
             {
                 MessageBox.Show("Yarışı kaybettiniz.", "Yarış Sonucu", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                istatistik.Istatistik.ToplamKaybedilenPara += _bahisMiktari;
             }
+
         }
 
         private void GuncelleKullaniciBakiyesi()

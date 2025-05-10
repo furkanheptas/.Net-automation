@@ -55,18 +55,57 @@ namespace AtYarisi
 
         private void basla_Load(object sender, EventArgs e)
         {
-            int x = 800;
-            int y = 600;
+           
+        }
 
-            this.Size = new System.Drawing.Size(x, y);
+        private void button2_MouseEnter(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonbuyut(button2, 5, 10);
+        }
 
-            int ekranGenisligi = Screen.PrimaryScreen.WorkingArea.Width;
-            int ekranYuksekligi = Screen.PrimaryScreen.WorkingArea.Height;
+        private void button2_MouseLeave(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonkucult(button2, 5, 10);
+        }
 
-            int baslangicX = (ekranGenisligi - this.Width) / 2;
-            int baslangicY = (ekranYuksekligi - this.Height) / 2;
+        private void button3_MouseEnter(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonbuyut(button3, 5, 10);
+        }
 
-            this.Location = new System.Drawing.Point(baslangicX, baslangicY);
+        private void button3_MouseLeave(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonkucult(button3, 5, 10);
+        }
+
+        private void button4_MouseEnter(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonbuyut(button4, 5, 10);
+        }
+
+        private void button4_MouseLeave(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonkucult(button4, 5, 10);
+        }
+
+        private void button5_MouseEnter(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonbuyut(button5, 5, 10);
+        }
+
+        private void button5_MouseLeave(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonkucult(button5, 5, 10);
+        }
+
+        private void button1_MouseEnter(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonbuyut(button1, 5, 10);
+        }
+
+        private void button1_MouseLeave(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonkucult(button1, 5, 10);
         }
     }
 }

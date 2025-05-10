@@ -7,12 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static AtYarisi.Form1;
 
 namespace AtYarisi
 {
     public partial class ayarlar : Form
     {       
-        public static bool acık = false;
+        public static bool acik = false;
         public static void pictureboxkucult(PictureBox pictureBox, int location, int size)
         {
             pictureBox.Location = new Point(pictureBox.Location.X + location, pictureBox.Location.Y + location);
@@ -71,17 +72,16 @@ namespace AtYarisi
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
-            if (acık)
+            if (GlobalAyarlar.MuzikAcik)
             {
                 Form1.muzik.Durdur();
                 pictureBox3.Image = Properties.Resources.mute;
-                acık = false;
             }
             else
             {
+                GlobalAyarlar.MuzikAcik = true;
                 Form1.muzik.Baslat();
                 pictureBox3.Image = Properties.Resources.unmute;
-                acık = true;
             }
         }
 

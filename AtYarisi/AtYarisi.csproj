@@ -102,6 +102,7 @@
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -157,12 +158,14 @@
     <Compile Include="basla.Designer.cs">
       <DependentUpon>basla.cs</DependentUpon>
     </Compile>
+    <Compile Include="istatistik.cs" />
     <Compile Include="FirebaseDBService.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="AnaSayfa.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include=".Designer.cs">
+      <DependentUpon>AnaSayfa.cs</DependentUpon>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="hesap.cs">
       <SubType>Form</SubType>
@@ -210,8 +213,8 @@
     <EmbeddedResource Include="basla.resx">
       <DependentUpon>basla.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="AnaSayfa.resx">
+      <DependentUpon>AnaSayfa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="hesap.resx">
       <DependentUpon>hesap.cs</DependentUpon>

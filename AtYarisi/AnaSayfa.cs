@@ -22,11 +22,16 @@ namespace AtYarisi
     {
         private readonly FirebaseDBService _dbService;
         private static bool basladiMi = false;
+
         public Form1()
         {
             InitializeComponent();
             _dbService = new FirebaseDBService("https://atyarisibahis-default-rtdb.europe-west1.firebasedatabase.app/");
           
+        }
+        public static class GlobalAyarlar
+        {
+            public static bool MuzikAcik = true;
         }
         public static class muzik
         {
@@ -35,17 +40,16 @@ namespace AtYarisi
 
             public static void Baslat()
             {
-                if (basladiMi)
-                {
+                if (basladiMi || !GlobalAyarlar.MuzikAcik)
                     return;
-                }
+
                 dosyayolu = Path.Combine(Path.GetTempPath(), "jojo.mp3");
                 using (var memoryStream = new MemoryStream())
                 {
                     Properties.Resources.muzik.CopyTo(memoryStream);
                     File.WriteAllBytes(dosyayolu, memoryStream.ToArray());
                 }
-                
+
                 player = new WindowsMediaPlayer();
                 player.URL = dosyayolu;
                 player.settings.setMode("loop", true);
@@ -53,7 +57,8 @@ namespace AtYarisi
                 player.controls.play();
                 basladiMi = true;
             }
-           
+
+
 
             public static void SesiAzalt()
             {
@@ -66,11 +71,6 @@ namespace AtYarisi
                 if (basladiMi && player.settings.volume < 100)
                     player.settings.volume += 10;
             }
-
-            public static int AnlikSes()
-            {
-                return basladiMi ? player.settings.volume : 0 ;
-            }
             public static void Durdur()
             {
                 if (basladiMi)
@@ -79,15 +79,17 @@ namespace AtYarisi
                     if (File.Exists(dosyayolu))
                     {
                         File.Delete(dosyayolu);
-
-                        basladiMi = false;
                     }
+                    basladiMi = false;
+                    GlobalAyarlar.MuzikAcik = false;
                 }
             }
+
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            muzik.Baslat();
+          if (GlobalAyarlar.MuzikAcik)
+                muzik.Baslat();
         }
         private async void button1_Click(object sender, EventArgs e)
         {
