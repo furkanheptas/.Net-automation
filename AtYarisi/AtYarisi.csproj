@@ -173,6 +173,7 @@
     <Compile Include="hesap.Designer.cs">
       <DependentUpon>hesap.cs</DependentUpon>
     </Compile>
+    <Compile Include="hesapIslemleri.cs" />
     <Compile Include="istatistikler.cs">
       <SubType>Form</SubType>
     </Compile>
