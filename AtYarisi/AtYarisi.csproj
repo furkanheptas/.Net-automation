@@ -283,6 +283,7 @@
     <Content Include="galibiyet.wav" />
     <Content Include="maglubiyet.wav" />
     <Content Include="muzik.wav" />
+    <Content Include="Resources\yarismuzigi.wav" />
     <None Include="Resources\unmute.png" />
     <None Include="Resources\sesac.png" />
     <None Include="Resources\seskis1.png" />
@@ -290,6 +291,8 @@
     <None Include="Resources\muzik.wav" />
     <None Include="Resources\mute1.png" />
     <None Include="Resources\kosucu.gif" />
+    <Content Include="Resources\baslaa.wav" />
+    <Content Include="Resources\gerisayim.wav" />
     <Content Include="Resources\pp.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
