@@ -139,30 +139,41 @@ namespace AtYarisi
 
         public static class yarismuzik
         {
+            // Yarış müziğini başlatmak için kullanılan metot
             public static void Baslat()
             {
                 try
                 {
+                    // Resources.yarismuzigi içindeki ses verisini kullanarak bir SoundPlayer nesnesi oluşturur.
+                    // MemoryStream, ses verisini bellekte saklamak için kullanılır.
                     SoundPlayer yarismuzigi = new SoundPlayer(new MemoryStream(Properties.Resources.yarismuzigi));
+                    // Yarış müziğini çalmaya başlar.
                     yarismuzigi.Play();
-
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Yarış müziği çalınamadı başla: " + ex.Message);
+                    // Eğer bir hata oluşursa, kullanıcıya bir hata mesajı gösterir.
+                    MessageBox.Show("Yarış müziği çalınamadı başlat: " + ex.Message);
                 }
             }
+
+            // Yarış müziğini durdurmak için kullanılan metot
             public static void Durdur()
             {
                 try
                 {
+                    // Resources.yarismuzigi içindeki ses verisini kullanarak bir SoundPlayer nesnesi oluşturur.
                     SoundPlayer yarismuzigi = new SoundPlayer(new MemoryStream(Properties.Resources.yarismuzigi));
+                    // Yarış müziğini durdurur.
                     yarismuzigi.Stop();
+                    // Form1 sınıfındaki müzik nesnesinin Baslat metodunu çağırır. (Ana müziği tekrar başlatır)
                     Form1.muzik.Baslat();
+                    // GlobalAyarlar sınıfındaki MuzikAcik özelliğini true olarak ayarlar.
                     GlobalAyarlar.MuzikAcik = true;
                 }
                 catch (Exception ex)
                 {
+                    // Eğer bir hata oluşursa, kullanıcıya bir hata mesajı gösterir.
                     MessageBox.Show("Yarış müziği çalınamadı durdur: " + ex.Message);
                 }
             }
@@ -348,48 +359,68 @@ namespace AtYarisi
         }
 
         // Yarış sonucunda bahis kazanıldı mı kontrolü
-        private void BahisSonucuHesapla(string kazananAtIsmi)
+        private async void BahisSonucuHesapla(string kazananAtIsmi)
         {
+            // İstatistik sınıfındaki ToplamBahisSayisi özelliğini bir artırır.
             istatistik.Istatistik.ToplamBahisSayisi++;
 
+            // Eğer kullanıcının seçtiği at kazandıysa
             if (_secilenAtIsim == kazananAtIsmi)
             {
+                // Kazanan atın bahis oranını alır.
                 decimal bahisOrani = _bahisOranlari[kazananAtIsmi];
+                // Kazanılan miktarı hesaplar.
                 decimal kazanc = _bahisMiktari * bahisOrani;
+                // Kullanıcının bakiyesine kazancı ekler.
                 _kullaniciBakiyesi += kazanc;
 
                 try
                 {
+                    // Galibiyet sesini çalmak için bir SoundPlayer nesnesi oluşturur.
                     SoundPlayer galibiyet = new SoundPlayer(new MemoryStream(Properties.Resources.galibiyet));
+                    // Galibiyet sesini çalar.
                     galibiyet.Play();
+
                 }
                 catch (Exception ex)
                 {
+                    // Eğer ses dosyası çalınamazsa, kullanıcıya bir hata mesajı gösterir.
                     MessageBox.Show("Ses dosyası çalınamadı: " + ex.Message);
                 }
+                // Kullanıcıya kazancını bildiren bir mesaj gösterir.
                 MessageBox.Show($"Yarışı kazandınız! Kazanç: {kazanc:F2} TL", "Yarış Sonucu", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // Form1 sınıfındaki müzik nesnesinin Baslat metodunu çağırır. (Ana müziği tekrar başlatır)
                 Form1.muzik.Baslat();
 
-               
 
+
+                // İstatistik sınıfındaki KazanilanBahisSayisi özelliğini bir artırır.
                 istatistik.Istatistik.KazanilanBahisSayisi++;
+                // İstatistik sınıfındaki ToplamKazanilanPara özelliğine kazancı ekler.
                 istatistik.Istatistik.ToplamKazanilanPara += kazanc;
             }
+            // Eğer kullanıcı kaybettiyse
             else
             {
                 try
                 {
+                    // Mağlubiyet sesini çalmak için bir SoundPlayer nesnesi oluşturur.
                     SoundPlayer maglubiyet = new SoundPlayer(new MemoryStream(Properties.Resources.maglubiyet));
+                    // Mağlubiyet sesini çalar.
                     maglubiyet.Play();
                 }
                 catch (Exception ex)
                 {
+                    // Eğer ses dosyası çalınamazsa, kullanıcıya bir hata mesajı gösterir.
                     MessageBox.Show("Ses dosyası çalınamadı: " + ex.Message);
                 }
+                // Kullanıcıya kaybettiğini bildiren bir mesaj gösterir.
                 MessageBox.Show("Yarışı kaybettiniz.", "Yarış Sonucu", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // İstatistik sınıfındaki ToplamKaybedilenPara özelliğine kaybedilen bahis miktarını ekler.
                 istatistik.Istatistik.ToplamKaybedilenPara += _bahisMiktari;
+                // Form1 sınıfındaki müzik nesnesinin Baslat metodunu çağırır. (Ana müziği tekrar başlatır)
                 Form1.muzik.Baslat();
-              
+
 
             }
         }

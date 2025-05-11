@@ -179,29 +179,43 @@ namespace AtYarisi
 
         private void gerisayimTimer_Tick(object sender, EventArgs e)
         {
-         
+            // Eğer gerisayım değeri 0'dan büyükse
             if (gerisayim > 0)
             {
+                // Geri sayım etiketinin metnini günceller.
                 gerisayimLabel.Text = gerisayim.ToString();
+                // Geri sayım sesini çalmak için bir SoundPlayer nesnesi oluşturur.
                 SoundPlayer gerisayimses = new SoundPlayer(new MemoryStream(Properties.Resources.gerisayim));
+                // Geri sayım sesini çalar.
                 gerisayimses.Play();
             }
+            // Eğer gerisayım değeri 0 ise
             else if (gerisayim == 0)
             {
+                // Geri sayım etiketinin metnini "GO!" olarak ayarlar.
                 gerisayimLabel.Text = "GO!";
-                SoundPlayer baslatt = new SoundPlayer(new MemoryStream(Properties.Resources.gerisayim));
+                // Başlat sesini çalmak için bir SoundPlayer nesnesi oluşturur.
+                SoundPlayer baslatt = new SoundPlayer(new MemoryStream(Properties.Resources.baslaa));
+                                                                                                         // Başlat sesini çalar.
                 baslatt.Play();
             }
+            // Eğer gerisayım değeri 0'dan küçükse (yani tamamlandıysa)
             else
             {
+                // Geri sayım timer'ını durdurur.
                 gerisayimTimer.Stop();
+                // Geri sayım etiketini görünmez yapar.
                 gerisayimLabel.Visible = false;
 
+                // Yarışla ilgili diğer timer'ları başlatır.
                 timer1.Start();
+                // Yarış müziğini başlatır.
                 yarismuzik.Baslat();
+                // GIF oynatma timer'ını başlatır.
                 gifTimer.Start();
             }
 
+            // Geri sayım değerini bir azaltır.
             gerisayim--;
         }
     }
