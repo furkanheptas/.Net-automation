@@ -145,4 +145,13 @@
   <data name="galibiyet" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\galibiyet.wav;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="baslaa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\baslaa.wav;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="gerisayim" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gerisayim.wav;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="yarismuzigi" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\yarismuzigi.wav;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

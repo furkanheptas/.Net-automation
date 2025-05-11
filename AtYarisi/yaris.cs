@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Media;
 using System.Text;
@@ -182,13 +183,13 @@ namespace AtYarisi
             if (gerisayim > 0)
             {
                 gerisayimLabel.Text = gerisayim.ToString();
-                SoundPlayer baslatt = new SoundPlayer("gerisayim.wav");
-                baslatt.Play();
+                SoundPlayer gerisayimses = new SoundPlayer(new MemoryStream(Properties.Resources.gerisayim));
+                gerisayimses.Play();
             }
             else if (gerisayim == 0)
             {
                 gerisayimLabel.Text = "GO!";
-                SoundPlayer baslatt = new SoundPlayer("baslaa.wav");
+                SoundPlayer baslatt = new SoundPlayer(new MemoryStream(Properties.Resources.gerisayim));
                 baslatt.Play();
             }
             else

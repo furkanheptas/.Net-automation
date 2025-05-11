@@ -143,27 +143,27 @@ namespace AtYarisi
             {
                 try
                 {
-                    SoundPlayer raceSong = new SoundPlayer("yarismuzigi.wav"); 
-                    raceSong.Play();
-                   
+                    SoundPlayer yarismuzigi = new SoundPlayer(new MemoryStream(Properties.Resources.yarismuzigi));
+                    yarismuzigi.Play();
+
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Yarış müziği çalınamadı: " + ex.Message);
+                    MessageBox.Show("Yarış müziği çalınamadı başla: " + ex.Message);
                 }
             }
             public static void Durdur()
             {
                 try
                 {
-                    SoundPlayer raceSong = new SoundPlayer("yarismuzigi.wav");
-                    raceSong.Stop();
+                    SoundPlayer yarismuzigi = new SoundPlayer(new MemoryStream(Properties.Resources.yarismuzigi));
+                    yarismuzigi.Stop();
                     Form1.muzik.Baslat();
                     GlobalAyarlar.MuzikAcik = true;
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Yarış müziği çalınamadı: " + ex.Message);
+                    MessageBox.Show("Yarış müziği çalınamadı durdur: " + ex.Message);
                 }
             }
         }
@@ -360,8 +360,8 @@ namespace AtYarisi
 
                 try
                 {
-                    SoundPlayer winSound = new SoundPlayer("galibiyet.wav");
-                    winSound.Play();
+                    SoundPlayer galibiyet = new SoundPlayer(new MemoryStream(Properties.Resources.galibiyet));
+                    galibiyet.Play();
                 }
                 catch (Exception ex)
                 {
@@ -379,8 +379,8 @@ namespace AtYarisi
             {
                 try
                 {
-                    SoundPlayer loseSound = new SoundPlayer("maglubiyet.wav");
-                    loseSound.Play();
+                    SoundPlayer maglubiyet = new SoundPlayer(new MemoryStream(Properties.Resources.maglubiyet));
+                    maglubiyet.Play();
                 }
                 catch (Exception ex)
                 {
