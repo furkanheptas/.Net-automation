@@ -13,7 +13,7 @@ namespace AtYarisi
 {
     public partial class ayarlar : Form
     {
-        // Müzik açık/kapalı durumunu kontrol eden bayrak
+        // Müzik açık/kapalı durumunu kontrol eden değişken
         public static bool acik = false;
 
         // PictureBox'ı küçültmek için kullanılan statik metot

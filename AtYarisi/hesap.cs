@@ -138,7 +138,7 @@ namespace AtYarisi
             }
         }
 
-        // Kullanıcıdan borç alır
+        // Kullanıcı borç alır
         private void BorcAl(decimal miktar)
         {
             if (miktar <= 0) // Geçersiz borç miktarı kontrolü

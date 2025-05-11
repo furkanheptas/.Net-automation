@@ -19,7 +19,7 @@ namespace AtYarisi
     public partial class Form1 : Form
     {
         private readonly FirebaseDBService _dbService; // Firebase veritabanı işlemleri için servis
-        private static bool basladiMi = false; // Müzik çalma durumunu kontrol eden bayrak
+        private static bool basladiMi = false; // Müzik çalma durumunu kontrol eden değiken
 
         public Form1()
         {
