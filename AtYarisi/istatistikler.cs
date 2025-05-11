@@ -50,18 +50,16 @@ namespace AtYarisi
 
             chart1.Series.Add(s);
 
-            int ekranGenisligi = Screen.PrimaryScreen.WorkingArea.Width;
-            int ekranYuksekligi = Screen.PrimaryScreen.WorkingArea.Height;
-
-            int baslangicX = (ekranGenisligi - this.Width) / 2;
-            int baslangicY = (ekranYuksekligi - this.Height) / 2;
-
-            this.Location = new System.Drawing.Point(baslangicX, baslangicY);
         }
 
         private void button1_MouseEnter(object sender, EventArgs e)
         {
             Form1.boyutlama.butonbuyut(button1, 5, 10);
+        }
+
+        private void button1_MouseLeave(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonkucult(button1, 5, 10);
         }
     }
 }

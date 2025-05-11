@@ -166,5 +166,35 @@ namespace AtYarisi
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
         }
+        // Buton enter leave olayları
+        private void button2_MouseEnter(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonbuyut(button2, 5, 10);
+        }
+
+        private void button2_MouseLeave(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonkucult(button2 , 5, 10);
+        }
+
+        private void button3_MouseEnter(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonbuyut(button3 , 5, 10);
+        }
+
+        private void button3_MouseLeave(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonkucult(button3 , 5, 10);
+        }
+
+        private void button1_MouseEnter(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonbuyut(button1 , 5, 10);
+        }
+
+        private void button1_MouseLeave(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonkucult(button1 , 5, 10);
+        }
     }
 }

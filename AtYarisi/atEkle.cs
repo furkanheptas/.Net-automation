@@ -95,24 +95,6 @@ namespace AtYarisi
             }
         }
 
-        // Form yüklendiğinde ekran boyutunu ve konumunu ayarla
-        private void atEkle_Load(object sender, EventArgs e)
-        {
-            int x = 800; // Formun genişliği
-            int y = 600; // Formun yüksekliği
-
-            this.Size = new System.Drawing.Size(x, y);
-
-            // Ekran çözünürlüğünü al ve formu ekranın ortasına yerleştir
-            int ekranGenisligi = Screen.PrimaryScreen.WorkingArea.Width;
-            int ekranYuksekligi = Screen.PrimaryScreen.WorkingArea.Height;
-
-            int baslangicX = (ekranGenisligi - this.Width) / 2;
-            int baslangicY = (ekranYuksekligi - this.Height) / 2;
-
-            this.Location = new System.Drawing.Point(baslangicX, baslangicY);
-        }
-
         // "Rastgele At Ekle" butonuna tıklandığında belirtilen sayıda rastgele at ekler
         private async void button3_Click(object sender, EventArgs e)
         {
@@ -163,6 +145,36 @@ namespace AtYarisi
             string[] baslangic = { "Hızlı", "Kara", "Beyaz", "Yıldırım", "Ateş", "Gümüş", "Altın", "Kızıl" };
             string[] son = { "Yele", "Göz", "Kanat", "Gölge", "Şimşek", "Rüzgar" };
             return baslangic[_random.Next(baslangic.Length)] + son[_random.Next(son.Length)] + _random.Next(100);
+        }
+
+        private void button2_MouseEnter(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonbuyut(button2, 2, 4);
+        }
+
+        private void button2_MouseLeave(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonkucult(button2, 2, 4);
+        }
+
+        private void button3_MouseEnter(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonbuyut(button3, 2, 4);
+        }
+
+        private void button3_MouseLeave(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonkucult(button3, 2, 4);
+        }
+
+        private void button1_MouseEnter(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonbuyut(button1, 3, 6);
+        }
+
+        private void button1_MouseLeave(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonkucult(button1, 3, 6);
         }
     }
 }
