@@ -36,18 +36,7 @@ namespace AtYarisi
         // Form yüklendiğinde yapılacak işlemler
         private void yaris_Load(object sender, EventArgs e)
         {
-            // Formun boyutlarını ve konumunu ayarlar
-            int x = 800;
-            int y = 600;
-            this.Size = new System.Drawing.Size(x, y);
-
-            int ekranGenisligi = Screen.PrimaryScreen.WorkingArea.Width;
-            int ekranYuksekligi = Screen.PrimaryScreen.WorkingArea.Height;
-
-            int baslangicX = (ekranGenisligi - this.Width) / 2;
-            int baslangicY = (ekranYuksekligi - this.Height) / 2;
-
-            this.Location = new System.Drawing.Point(baslangicX, baslangicY);
+         
 
             // Seçilen yarışa katılan her at için görsel öğeler oluşturur
             foreach (var at in _secilenYaris.KatilanAtlar)
@@ -56,12 +45,13 @@ namespace AtYarisi
 
                 // Atın resmini temsil eden PictureBox oluşturur
                 PictureBox atResim = new PictureBox();
-                atResim.Image = Properties.Resources.anasayfafoto; // Varsayılan bir resim atar
+                atResim.Image = Properties.Resources.kosucu; // Varsayılan bir resim atar
+                atResim.SizeMode = PictureBoxSizeMode.StretchImage;//
                 atResim.Text = at.Isim; // Atın ismini PictureBox'ın Text özelliğine atar
                 atResim.Size = new Size(50, 50); // PictureBox'ın boyutunu ayarlar
                 // PictureBox'ın konumunu, atın yarışa katılım sırasına göre ayarlar
                 atResim.Location = new Point(10, 50 + _secilenYaris.KatilanAtlar.IndexOf(at) * 60);
-                this.Controls.Add(atResim); // PictureBox'ı forma ekler
+                panel1.Controls.Add(atResim); // PictureBox'ı forma ekler
                 atResim.Tag = at; // At nesnesini PictureBox'ın Tag özelliğine atar (veri saklamak için)
                 atResim.Name = "atResim" + at.Isim; // PictureBox'a benzersiz bir isim verir
 
@@ -71,9 +61,25 @@ namespace AtYarisi
                 // Label'ın konumunu, atın yarışa katılım sırasına göre ayarlar
                 atIsimLabel.Location = new Point(10, 100 + _secilenYaris.KatilanAtlar.IndexOf(at) * 60);
                 atIsimLabel.AutoSize = true; // Label'ın boyutunun içeriğe göre ayarlanmasını sağlar
-                this.Controls.Add(atIsimLabel); // Label'ı forma ekler
+                panel1.Controls.Add(atIsimLabel); // Label'ı forma ekler
                 atIsimLabel.Name = "atIsimLabel" + at.Isim; // Label'a benzersiz bir isim verir
+
+                ImageAnimator.Animate(atResim.Image, (senderAnimate, args) => atResim.Invalidate());// Her kare değiştiğinde gif framelerini yeniden çizme
+
             }
+            gifTimer = new Timer();
+            gifTimer.Interval = 50;
+            gifTimer.Tick += (s, ev) =>
+            {
+                ImageAnimator.UpdateFrames();
+                foreach (Control c in panel1.Controls)
+                {
+                    if (c is PictureBox pb && pb.Image != null)
+                        pb.Invalidate(); 
+                }// Form üzerindeki bütün PictureBoxlara uygulanacak.
+            };
+            
+        
         }
 
         // Timer her tetiklendiğinde (belirli aralıklarla) yapılacak işlemler
@@ -83,7 +89,7 @@ namespace AtYarisi
             if (_kazananAtKontrol == null)
             {
                 // Formdaki her bir kontrolü dolaşır
-                foreach (Control kontrol in this.Controls)
+                foreach (Control kontrol in panel1.Controls)
                 {
                     // Eğer kontrol bir PictureBox ise ve Tag özelliği bir At nesnesi ise
                     if (kontrol is PictureBox && kontrol.Tag is At atBilgisi)
@@ -103,7 +109,7 @@ namespace AtYarisi
 
                         // Geride kalan atlara hız bonusu veren bir faktör
                         float gerideBonus = 1.0f;
-                        int maxKonum = this.Controls.OfType<PictureBox>().Max(pb => pb.Left); // En öndeki atın konumunu bulur
+                        int maxKonum = panel1.Controls.OfType<PictureBox>().Max(pb => pb.Left); // En öndeki atın konumunu bulur
                         if (kontrol.Left < maxKonum)
                         {
                             int fark = maxKonum - kontrol.Left; // Öndeki atla arasındaki farkı hesaplar
@@ -126,7 +132,7 @@ namespace AtYarisi
 
                         // Atın ismini gösteren Label'ın konumunu günceller
                         string labelName = "atIsimLabel" + atBilgisi.Isim;
-                        Control labelControl = this.Controls.Find(labelName, false).FirstOrDefault();
+                        Control labelControl = panel1.Controls.Find(labelName, false).FirstOrDefault();
                         if (labelControl != null)
                         {
                             labelControl.Left = kontrol.Left;
@@ -162,6 +168,17 @@ namespace AtYarisi
         private void button1_Click(object sender, EventArgs e)
         {
             timer1.Start(); // Timer'ı başlatır, yani yarışı başlatır
+            gifTimer.Start();
+        }
+        // Button enter leave olayları
+        private void button1_MouseEnter(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonbuyut(button1, 4, 8);
+        }
+
+        private void button1_MouseLeave(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonkucult(button1, 4, 8);
         }
     }
 }

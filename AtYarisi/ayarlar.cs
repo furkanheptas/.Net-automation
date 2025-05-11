@@ -70,20 +70,6 @@ namespace AtYarisi
             pictureboxkucult(pictureBox1, 3, 6);
         }
 
-        // Form yüklendiğinde ekran boyutunu ve konumunu ayarla
-        private void ayarlar_Load_1(object sender, EventArgs e)
-        {
-            // Ekran çözünürlüğünü al
-            int ekranGenisligi = Screen.PrimaryScreen.WorkingArea.Width;
-            int ekranYuksekligi = Screen.PrimaryScreen.WorkingArea.Height;
-
-            // Formu ekranın ortasına yerleştir
-            int baslangicX = (ekranGenisligi - this.Width) / 2;
-            int baslangicY = (ekranYuksekligi - this.Height) / 2;
-
-            this.Location = new System.Drawing.Point(baslangicX, baslangicY);
-        }
-
         // PictureBox2'ye tıklandığında sesi artır
         private void pictureBox2_Click(object sender, EventArgs e)
         {
@@ -134,6 +120,16 @@ namespace AtYarisi
         private void pictureBox2_MouseLeave(object sender, EventArgs e)
         {
             pictureboxkucult(pictureBox2, 3, 6);
+        }
+
+        private void button1_MouseEnter(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonbuyut(button1, 4, 10);
+        }
+
+        private void button1_MouseLeave(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonkucult(button1, 4, 10);
         }
     }
 }

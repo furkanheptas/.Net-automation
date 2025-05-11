@@ -42,21 +42,7 @@ namespace AtYarisi
         // Form yüklendiğinde ekran boyutunu ve konumunu ayarla, atları yükle
         private async void atlarim_Load(object sender, EventArgs e)
         {
-            int x = 800; // Formun genişliği
-            int y = 600; // Formun yüksekliği
-
-            this.Size = new System.Drawing.Size(x, y);
-
-            // Ekran çözünürlüğünü al ve formu ekranın ortasına yerleştir
-            int ekranGenisligi = Screen.PrimaryScreen.WorkingArea.Width;
-            int ekranYuksekligi = Screen.PrimaryScreen.WorkingArea.Height;
-
-            int baslangicX = (ekranGenisligi - this.Width) / 2;
-            int baslangicY = (ekranYuksekligi - this.Height) / 2;
-
-            this.Location = new System.Drawing.Point(baslangicX, baslangicY);
-
-            // Atları yükle
+           // Atları yükle
             await atYukle();
         }
 

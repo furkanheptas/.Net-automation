@@ -75,16 +75,6 @@ namespace AtYarisi
         // Form yüklendiğinde ekranı ortalar ve yarışları oluşturur
         private async void atYarislari_Load(object sender, EventArgs e)
         {
-            // Form boyutunu ve ekran merkezini ayarla
-            int x = 800;
-            int y = 600;
-            this.Size = new System.Drawing.Size(x, y);
-            int ekranGenisligi = Screen.PrimaryScreen.WorkingArea.Width;
-            int ekranYuksekligi = Screen.PrimaryScreen.WorkingArea.Height;
-            int baslangicX = (ekranGenisligi - this.Width) / 2;
-            int baslangicY = (ekranYuksekligi - this.Height) / 2;
-            this.Location = new System.Drawing.Point(baslangicX, baslangicY);
-
             // Yarışları oluştur ve listele
             await YarisOlusturVeListele();
 
@@ -351,6 +341,26 @@ namespace AtYarisi
         private void GuncelleKullaniciBakiyesi()
         {
             label7.Text = $"Bakiye: {_kullaniciBakiyesi:F2} TL";
+        }
+
+        private void button2_MouseEnter(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonbuyut(button2, 5, 10);
+        }
+
+        private void button2_MouseLeave(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonkucult(button2, 5, 10);
+        }
+
+        private void button1_MouseEnter(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonbuyut(button1, 3, 6);    
+        }
+
+        private void button1_MouseLeave(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonkucult(button1, 3, 6);
         }
     }
 }

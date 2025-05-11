@@ -1,6 +1,6 @@
 ﻿using System;
-using System.IO;
 using System.Globalization;
+using System.IO;
 using System.Windows.Forms;
 
 namespace AtYarisi
@@ -46,25 +46,6 @@ namespace AtYarisi
 
             // Yarış sona erdiğinde Hesap_YarisSonlandi metodunu çağır
             YarisSonlandi += Hesap_YarisSonlandi;
-        }
-
-        // Form yüklendiğinde ekran boyutunu ve konumunu ayarla
-        private void hesap_Load(object sender, EventArgs e)
-        {
-            int x = 800; // Formun genişliği
-            int y = 600; // Formun yüksekliği
-
-            this.Size = new System.Drawing.Size(x, y);
-
-            // Ekran çözünürlüğünü al
-            int ekranGenisligi = Screen.PrimaryScreen.WorkingArea.Width;
-            int ekranYuksekligi = Screen.PrimaryScreen.WorkingArea.Height;
-
-            // Formu ekranın ortasına yerleştir
-            int baslangicX = (ekranGenisligi - this.Width) / 2;
-            int baslangicY = (ekranYuksekligi - this.Height) / 2;
-
-            this.Location = new System.Drawing.Point(baslangicX, baslangicY);
         }
 
         // "Geri Dön" butonuna tıklandığında ana forma geçiş yap
@@ -281,6 +262,36 @@ namespace AtYarisi
                 MessageBox.Show("Geçersiz miktar.");
             }
             textBox2.Text = ""; // Giriş alanını temizle
+        }
+
+        private void button2_MouseEnter(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonbuyut(button2, 2, 4);
+        }
+
+        private void button2_MouseLeave(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonkucult(button2, 2, 4);
+        }
+
+        private void button3_MouseEnter(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonbuyut(button3, 2, 4);
+        }
+
+        private void button3_MouseLeave(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonkucult(button3, 2, 4);
+        }
+
+        private void button1_MouseEnter(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonbuyut(button1, 2, 4);
+        }
+
+        private void button1_MouseLeave(object sender, EventArgs e)
+        {
+            Form1.boyutlama.butonkucult(button1, 2, 4);
         }
     }
 }
