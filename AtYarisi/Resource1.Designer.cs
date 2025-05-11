@@ -61,6 +61,25 @@ namespace AtYarisi {
         }
         
         /// <summary>
+        ///   .wav benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string galibiyet {
+            get {
+                return ResourceManager.GetString("galibiyet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static byte[] maglubiyet {
+            get {
+                object obj = ResourceManager.GetObject("maglubiyet", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   System.Byte[] türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
         internal static byte[] mute {

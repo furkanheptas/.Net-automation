@@ -11,6 +11,8 @@ using System.Windows.Forms;
 using System.IO;
 using System.Globalization;
 using static AtYarisi.istatistik;
+using System.Media;
+using static AtYarisi.Form1;
 
 namespace AtYarisi
 {
@@ -135,6 +137,36 @@ namespace AtYarisi
             };
         }
 
+        public static class yarismuzik
+        {
+            public static void Baslat()
+            {
+                try
+                {
+                    SoundPlayer raceSong = new SoundPlayer("yarismuzigi.wav"); 
+                    raceSong.Play();
+                   
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Yarış müziği çalınamadı: " + ex.Message);
+                }
+            }
+            public static void Durdur()
+            {
+                try
+                {
+                    SoundPlayer raceSong = new SoundPlayer("yarismuzigi.wav");
+                    raceSong.Stop();
+                    Form1.muzik.Baslat();
+                    GlobalAyarlar.MuzikAcik = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Yarış müziği çalınamadı: " + ex.Message);
+                }
+            }
+        }
 
 
         // Yarış seçilince atları grid'e bas ve oranları göster
@@ -184,6 +216,7 @@ namespace AtYarisi
                         this.Show();
                         await YarisOlusturVeListele();
                     };
+                    Form1.muzik.Durdur();
                     yarisForm.Show();
                     this.Hide();
                 }
@@ -325,15 +358,39 @@ namespace AtYarisi
                 decimal kazanc = _bahisMiktari * bahisOrani;
                 _kullaniciBakiyesi += kazanc;
 
+                try
+                {
+                    SoundPlayer winSound = new SoundPlayer("galibiyet.wav");
+                    winSound.Play();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ses dosyası çalınamadı: " + ex.Message);
+                }
                 MessageBox.Show($"Yarışı kazandınız! Kazanç: {kazanc:F2} TL", "Yarış Sonucu", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Form1.muzik.Baslat();
+
+               
 
                 istatistik.Istatistik.KazanilanBahisSayisi++;
                 istatistik.Istatistik.ToplamKazanilanPara += kazanc;
             }
             else
             {
+                try
+                {
+                    SoundPlayer loseSound = new SoundPlayer("maglubiyet.wav");
+                    loseSound.Play();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ses dosyası çalınamadı: " + ex.Message);
+                }
                 MessageBox.Show("Yarışı kaybettiniz.", "Yarış Sonucu", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 istatistik.Istatistik.ToplamKaybedilenPara += _bahisMiktari;
+                Form1.muzik.Baslat();
+              
+
             }
         }
 

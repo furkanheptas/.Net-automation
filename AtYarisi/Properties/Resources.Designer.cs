@@ -71,12 +71,32 @@ namespace AtYarisi.Properties {
         }
         
         /// <summary>
+        ///   System.Byte[] türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static byte[] galibiyet {
+            get {
+                object obj = ResourceManager.GetObject("galibiyet", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
         internal static System.Drawing.Bitmap kosucu {
             get {
                 object obj = ResourceManager.GetObject("kosucu", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static byte[] maglubiyet {
+            get {
+                object obj = ResourceManager.GetObject("maglubiyet", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         

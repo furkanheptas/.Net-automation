@@ -280,6 +280,8 @@
     <Content Include="anasayfa-music.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="galibiyet.wav" />
+    <Content Include="maglubiyet.wav" />
     <Content Include="muzik.wav" />
     <None Include="Resources\unmute.png" />
     <None Include="Resources\sesac.png" />

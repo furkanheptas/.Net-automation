@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -25,18 +26,17 @@ namespace AtYarisi
         private PictureBox _kazananAtKontrol = null;
         // Yarışın bitip bitmediğini kontrol etmek için kullanılır
         private bool _yarisBitti = false;
-
-        // Yapıcı metot: Yarış formu oluşturulurken çağrılır
         public yaris(Yaris secilenYaris)
         {
             InitializeComponent(); // Formun bileşenlerini başlatır
             _secilenYaris = secilenYaris; // Seçilen yarış nesnesini alır
         }
-
+       
+        int gerisayim = 3;
         // Form yüklendiğinde yapılacak işlemler
         private void yaris_Load(object sender, EventArgs e)
         {
-         
+            gerisayimTimer.Start();
 
             // Seçilen yarışa katılan her at için görsel öğeler oluşturur
             foreach (var at in _secilenYaris.KatilanAtlar)
@@ -75,12 +75,14 @@ namespace AtYarisi
                 foreach (Control c in panel1.Controls)
                 {
                     if (c is PictureBox pb && pb.Image != null)
-                        pb.Invalidate(); 
-                }// Form üzerindeki bütün PictureBoxlara uygulanacak.
+                        pb.Invalidate();
+                }
+                // Form üzerindeki bütün PictureBoxlara uygulanacak.
             };
-            
-        
+
+
         }
+        
 
         // Timer her tetiklendiğinde (belirli aralıklarla) yapılacak işlemler
         private void timer1_Tick(object sender, EventArgs e)
@@ -149,6 +151,7 @@ namespace AtYarisi
                 // Eğer kazanan at belirlendiyse
                 if (_kazananAtKontrol != null)
                 {
+                    yarismuzik.Durdur();
                     timer1.Stop(); // Timer'ı durdurur
                     _yarisBitti = true; // Yarışın bittiğini işaretler
                     string kazananAtIsmi = _kazananAtKontrol.Text; // Kazanan atın ismini alır
@@ -159,26 +162,46 @@ namespace AtYarisi
                     //Yarışı bitiren hesap formuna ulaşır.
                     hesap hesap = new hesap();
                     hesap.Hesap_YarisSonlandi(kazananAtIsmi);
+
                     this.Dispose(); // Formu kapatır
+
                 }
             }
         }
 
-        // Yarışı başlat butonuna tıklanınca yapılacak işlemler
-        private void button1_Click(object sender, EventArgs e)
-        {
-            timer1.Start(); // Timer'ı başlatır, yani yarışı başlatır
-            gifTimer.Start();
-        }
         // Button enter leave olayları
-        private void button1_MouseEnter(object sender, EventArgs e)
+
+        private void yaris_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Form1.boyutlama.butonbuyut(button1, 4, 8);
+
         }
 
-        private void button1_MouseLeave(object sender, EventArgs e)
+        private void gerisayimTimer_Tick(object sender, EventArgs e)
         {
-            Form1.boyutlama.butonkucult(button1, 4, 8);
+         
+            if (gerisayim > 0)
+            {
+                gerisayimLabel.Text = gerisayim.ToString();
+                SoundPlayer baslatt = new SoundPlayer("gerisayim.wav");
+                baslatt.Play();
+            }
+            else if (gerisayim == 0)
+            {
+                gerisayimLabel.Text = "GO!";
+                SoundPlayer baslatt = new SoundPlayer("baslaa.wav");
+                baslatt.Play();
+            }
+            else
+            {
+                gerisayimTimer.Stop();
+                gerisayimLabel.Visible = false;
+
+                timer1.Start();
+                yarismuzik.Baslat();
+                gifTimer.Start();
+            }
+
+            gerisayim--;
         }
     }
 }
