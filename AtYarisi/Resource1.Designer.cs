@@ -90,7 +90,7 @@ namespace AtYarisi {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   System.Byte[] türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
         internal static byte[] maglubiyet {
             get {

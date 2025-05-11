@@ -125,7 +125,7 @@
     <value>.wav</value>
   </data>
   <data name="gerisayim" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\gerisayim.wav;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>bin\Debug\gerisayim.wav;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="maglubiyet" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\maglubiyet.wav;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
