@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Gerekli kütüphaneler
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,30 +16,55 @@ namespace AtYarisi
 {
     public partial class atYarislari : Form
     {
+        // Firebase servisinden veri çekmek için kullanılan servis sınıfı
         private readonly FirebaseDBService _dbService;
+
+        // Yarışları tutan liste
         private List<Yaris> _yarislar;
+
+        // Rastgele sayı üretmek için kullanılan nesne
         private readonly Random _random = new Random();
+
+        // Her at için bahis oranları
         private Dictionary<string, decimal> _bahisOranlari = new Dictionary<string, decimal>();
+
+        // Kullanıcının mevcut bakiyesi
         private decimal _kullaniciBakiyesi;
+
+        // Kullanıcının seçtiği at ismi
         private string _secilenAtIsim;
+
+        // Kullanıcının bahis miktarı
         private decimal _bahisMiktari;
+
+        // Bakiye dosyasından okuma/yazma işlemleri için kullanılan sınıf
         private readonly hesapIslemleri _hesapIslemleri = new hesapIslemleri();
 
         public atYarislari()
         {
             InitializeComponent();
+
+            // Form kapandığında uygulamayı tamamen kapat
             this.FormClosed += (sender, e) => Application.Exit();
+
+            // Yarış listesi oluştur
             _yarislar = new List<Yaris>();
+
+            // Firebase bağlantısı başlat
             _dbService = new FirebaseDBService("https://atyarisibahis-default-rtdb.europe-west1.firebasedatabase.app/");
+
+            // Dosyadan mevcut kullanıcı bakiyesini yükle
             _kullaniciBakiyesi = _hesapIslemleri.DosyadanBakiyeYukle();
         }
-        
-         public class Yaris
+
+        // Yaris sınıfı: her yarış bir ID'ye ve at listesine sahip
+        public class Yaris
         {
             public string Id { get; set; }
             public List<At> KatilanAtlar { get; set; }
         }
 
+        // "Başla" butonuna tıklanınca başka forma geçiş yapar
         private void button1_Click(object sender, EventArgs e)
         {
             basla basla = new basla();
@@ -46,71 +72,82 @@ namespace AtYarisi
             this.Hide();
         }
 
+        // Form yüklendiğinde ekranı ortalar ve yarışları oluşturur
         private async void atYarislari_Load(object sender, EventArgs e)
         {
+            // Form boyutunu ve ekran merkezini ayarla
             int x = 800;
             int y = 600;
-
             this.Size = new System.Drawing.Size(x, y);
-
             int ekranGenisligi = Screen.PrimaryScreen.WorkingArea.Width;
             int ekranYuksekligi = Screen.PrimaryScreen.WorkingArea.Height;
-
             int baslangicX = (ekranGenisligi - this.Width) / 2;
             int baslangicY = (ekranYuksekligi - this.Height) / 2;
-
             this.Location = new System.Drawing.Point(baslangicX, baslangicY);
 
+            // Yarışları oluştur ve listele
             await YarisOlusturVeListele();
+
+            // Kullanıcı bakiyesini ekranda göster
             GuncelleKullaniciBakiyesi();
         }
 
+        // Veritabanından atları çekerek rastgele yarışlar oluşturur ve arayüzde listeler
         private async Task YarisOlusturVeListele()
         {
-            var tumAtlar = await _dbService.GetAllHorsesDictionaryAsync();
-            if (tumAtlar.Count >= 3)
+            var tumAtlar = await _dbService.GetAllHorsesDictionaryAsync(); // Tüm atları veritabanından al
+
+            if (tumAtlar.Count >= 3) // En az 3 at varsa yarış oluşturulabilir
             {
-                int yarisSayisi = _random.Next(2, tumAtlar.Count / 8 + 1);
-                List<At> karistirilmisAtlar = tumAtlar.Values.OrderBy(x => _random.Next()).ToList();
+                int maxYarisSayisi = Math.Min(10, tumAtlar.Count / 3); // En fazla 10 yarış, her biri için minimum 3 at şartı
+                _yarislar.Clear(); // Önceki yarış listesini temizle
+                listBox1.Items.Clear(); // Liste kutusunu temizle
+                dataGridView1.DataSource = null; // Önceki tabloyu temizle
 
-                _yarislar.Clear();
-                listBox1.Items.Clear();
-                dataGridView1.DataSource = null;
-
-                for (int i = 0; i < yarisSayisi; i++)
+                // Belirlenen sayıda rastgele yarış oluştur
+                for (int i = 0; i < maxYarisSayisi; i++)
                 {
-                    Yaris yeniYaris = YarisOlustur(karistirilmisAtlar, i);
-                    _yarislar.Add(yeniYaris);
+                    Yaris yeniYaris = YarisOlustur(tumAtlar.Values.ToList()); // Rastgele yarış oluştur
+                    _yarislar.Add(yeniYaris); // Yarışı listeye ekle
                 }
+
+                // Yarışları arayüzde listele
                 listBox1.Items.Clear();
                 for (int i = 0; i < _yarislar.Count; i++)
                 {
-                    string katilimciBilgileri = string.Join(", ", _yarislar[i].KatilanAtlar.Select(a => $"{a.Isim} (Hız: {a.Hiz}, Dayanıklılık: {a.Dayaniklilik})"));
-                    listBox1.Items.Add($"Yarış {i + 1}: Katılımcılar: {katilimciBilgileri}");
+                    string katilimciBilgileri = string.Join(", ", _yarislar[i].KatilanAtlar
+                        .Select(a => $"{a.Isim} (Hız: {a.Hiz}, Dayanıklılık: {a.Dayaniklilik})")); // At bilgilerini hazırla
+
+                    listBox1.Items.Add($"Yarış {i + 1}: Katılımcılar: {katilimciBilgileri}"); // Liste kutusuna ekle
                 }
             }
             else
             {
+                // Yeterli at yoksa uyarı ver
                 MessageBox.Show("Yeterli sayıda at bulunamadı.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                this.Close();
+                this.Close(); // Pencereyi kapat
             }
         }
 
-        private Yaris YarisOlustur(List<At> karistirilmisAtlar, int yarisIndex)
+        // Tek bir yarış için 3 ila 5 adet rastgele at seçip yarış nesnesi oluşturur
+        private Yaris YarisOlustur(List<At> tumAtlar)
         {
-            int baslangicIndex = yarisIndex * 3;
-            int alinacakSayi = Math.Min(3 + _random.Next(3), karistirilmisAtlar.Count - baslangicIndex);
+            int alinacakSayi = _random.Next(3, 6); // 3 ile 5 arasında rastgele katılımcı sayısı belirle
 
-            if (alinacakSayi <= 0)
+            // Atları rastgele sırala ve belirlenen sayıda seç
+            List<At> secilenAtlar = tumAtlar.OrderBy(a => _random.Next()).Take(alinacakSayi).ToList();
+
+            // Yeni yarış nesnesi oluştur ve seçilen atları ekle
+            return new Yaris
             {
-                alinacakSayi = Math.Min(3, karistirilmisAtlar.Count);
-                baslangicIndex = Math.Max(0, karistirilmisAtlar.Count - alinacakSayi);
-            }
-
-            List<At> katilanAtlar = karistirilmisAtlar.Skip(baslangicIndex).Take(alinacakSayi).ToList();
-            return new Yaris { Id = Guid.NewGuid().ToString(), KatilanAtlar = katilanAtlar };
+                Id = Guid.NewGuid().ToString(), // Her yarış için benzersiz ID
+                KatilanAtlar = secilenAtlar
+            };
         }
 
+
+
+        // Yarış seçilince atları grid'e bas ve oranları göster
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listBox1.SelectedIndex >= 0)
@@ -129,16 +166,16 @@ namespace AtYarisi
             }
         }
 
+        // Grid'de at seçilince isim değişkenini al
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
                 _secilenAtIsim = dataGridView1.SelectedRows[0].Cells["Isim"].Value?.ToString();
-                int secilenAtHiz = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Hiz"].Value);
-                float secilenAtDayaniklilik = (float)dataGridView1.SelectedRows[0].Cells["Dayaniklilik"].Value;
             }
         }
 
+        // "Yarışı Oynat" butonuna basınca bahis yapılır ve yarış başlar
         private void button2_Click(object sender, EventArgs e)
         {
             if (listBox1.SelectedIndex >= 0)
@@ -147,6 +184,8 @@ namespace AtYarisi
                 if (BahisYap(secilenYaris))
                 {
                     yaris yarisForm = new yaris(secilenYaris);
+
+                    // Yarış bittiğinde bahis sonucu hesaplanır
                     yarisForm.YarisSonlandi += async (kazananAtIsmi) =>
                     {
                         BahisSonucuHesapla(kazananAtIsmi);
@@ -165,6 +204,7 @@ namespace AtYarisi
             }
         }
 
+        // Değer sınırlandırıcı fonksiyon
         private decimal Clamp(decimal value, decimal min, decimal max)
         {
             if (value < min) return min;
@@ -172,6 +212,7 @@ namespace AtYarisi
             return value;
         }
 
+        // Her at için bahis oranı hesaplama fonksiyonu
         private void HesaplaBahisOranlari(List<At> katilanAtlar)
         {
             _bahisOranlari.Clear();
@@ -180,14 +221,13 @@ namespace AtYarisi
                 .Select(at => new
                 {
                     At = at,
-                    Puan = at.Hiz * 1.0m + (decimal)at.Dayaniklilik * 0.7m
+                    Puan = at.Hiz * 1.0m + (decimal)at.Dayaniklilik * 0.7m // Gizli formül
                 })
                 .OrderByDescending(x => x.Puan)
                 .ToList();
 
             decimal minOran = 1.1m;
             decimal maxOran = 4.5m;
-
             decimal maxPuan = puanliAtlar.First().Puan;
             decimal minPuan = puanliAtlar.Last().Puan;
             decimal puanAraligi = maxPuan - minPuan;
@@ -198,15 +238,19 @@ namespace AtYarisi
             {
                 var at = puanliAtlar[i].At;
 
+                // Normalize puanı hesapla
                 decimal normalizedPuan = puanAraligi > 0
                     ? (puanliAtlar[i].Puan - minPuan) / puanAraligi
                     : 0.5m;
 
+                // Oranı puana göre ters orantılı hesapla
                 decimal baseOran = Map(normalizedPuan, 0, 1, maxOran, minOran);
 
+                // Küçük varyasyon ekle
                 decimal varyasyon = (decimal)_random.NextDouble() * 0.3m - 0.15m;
                 baseOran *= (1 + varyasyon);
 
+                // Aynı oran olmasın diye arttır
                 while (benzersizOranlar.Contains(Math.Round(baseOran, 2)))
                 {
                     baseOran += 0.01m;
@@ -220,8 +264,7 @@ namespace AtYarisi
             }
         }
 
-
-
+        // Bir değeri başka aralığa dönüştüren fonksiyon
         private decimal Map(decimal value, decimal fromMin, decimal fromMax, decimal toMin, decimal toMax)
         {
             if (fromMax - fromMin == 0)
@@ -230,8 +273,7 @@ namespace AtYarisi
             return toMin + (value - fromMin) * (toMax - toMin) / (fromMax - fromMin);
         }
 
-
-
+        // Label'da oranları göster
         private void GosterBahisOranlari()
         {
             string oranText = "Bahis Oranları:\n";
@@ -242,6 +284,7 @@ namespace AtYarisi
             label8.Text = oranText;
         }
 
+        // Bahis yapma işlemi
         private bool BahisYap(Yaris secilenYaris)
         {
             if (dataGridView1.SelectedRows.Count == 0)
@@ -275,20 +318,25 @@ namespace AtYarisi
                 return false;
             }
 
+            // Bahis ücreti kullanıcı bakiyesinden düşülür
             _kullaniciBakiyesi -= _bahisMiktari;
             GuncelleKullaniciBakiyesi();
             return true;
         }
 
+        // Yarış sonucunda bahis kazanıldı mı kontrolü
         private void BahisSonucuHesapla(string kazananAtIsmi)
         {
-                istatistik.Istatistik.ToplamBahisSayisi++;
+            istatistik.Istatistik.ToplamBahisSayisi++;
+
             if (_secilenAtIsim == kazananAtIsmi)
             {
                 decimal bahisOrani = _bahisOranlari[kazananAtIsmi];
                 decimal kazanc = _bahisMiktari * bahisOrani;
                 _kullaniciBakiyesi += kazanc;
+
                 MessageBox.Show($"Yarışı kazandınız! Kazanç: {kazanc:F2} TL", "Yarış Sonucu", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 istatistik.Istatistik.KazanilanBahisSayisi++;
                 istatistik.Istatistik.ToplamKazanilanPara += kazanc;
             }
@@ -297,15 +345,12 @@ namespace AtYarisi
                 MessageBox.Show("Yarışı kaybettiniz.", "Yarış Sonucu", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 istatistik.Istatistik.ToplamKaybedilenPara += _bahisMiktari;
             }
-
         }
 
+        // Label'daki bakiye bilgisini günceller
         private void GuncelleKullaniciBakiyesi()
         {
             label7.Text = $"Bakiye: {_kullaniciBakiyesi:F2} TL";
         }
-
-        
     }
 }
-

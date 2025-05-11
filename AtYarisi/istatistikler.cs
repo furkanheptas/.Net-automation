@@ -49,6 +49,14 @@ namespace AtYarisi
             s.Points[1].Color = Color.Red;
 
             chart1.Series.Add(s);
+
+            int ekranGenisligi = Screen.PrimaryScreen.WorkingArea.Width;
+            int ekranYuksekligi = Screen.PrimaryScreen.WorkingArea.Height;
+
+            int baslangicX = (ekranGenisligi - this.Width) / 2;
+            int baslangicY = (ekranYuksekligi - this.Height) / 2;
+
+            this.Location = new System.Drawing.Point(baslangicX, baslangicY);
         }
 
         private void button1_MouseEnter(object sender, EventArgs e)
